@@ -192,7 +192,13 @@ void ExitMainThread()
     PostMessage(gWnd, WM_QUIT, 0, 0);
 }
 
+#ifdef GPUINFO
+// The main function of PresentMon was changed to the following - so there would not be 
+// multiple mains in the application, if integrated into another app
+int PresentMon_main(int argc, char** argv)
+#else
 int main(int argc, char** argv)
+#endif
 {
     // Parse command line arguments.
     if (!ParseCommandLine(argc, argv)) {

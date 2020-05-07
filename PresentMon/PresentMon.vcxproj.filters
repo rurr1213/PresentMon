@@ -10,6 +10,7 @@
     <ClCompile Include="OutputThread.cpp" />
     <ClCompile Include="Privilege.cpp" />
     <ClCompile Include="TraceSession.cpp" />
+    <ClCompile Include="GPUInfoCallback.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LateStageReprojectionData.hpp" />

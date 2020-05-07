@@ -21,10 +21,18 @@ SOFTWARE.
 */
 
 #include "PresentMon.hpp"
+#include "GPUInfoCallback.h"
 
 #include <algorithm>
 #include <shlwapi.h>
 #include <thread>
+
+#ifdef GPUINFO
+// Code to callback into the GPUInfo object in GPUInfoCallback.h
+void GPUInfoCallback_UpdateConsole(uint32_t processId, ProcessInfo const& processInfo);
+void GPUInfoCallback_UpdateCsv(ProcessInfo* processInfo, SwapChainData const& chain, PresentEvent const& p);
+bool GPUInfoCallbackIsRunning(void);
+#endif
 
 static std::thread gThread;
 static bool gQuit = false;
@@ -271,9 +279,15 @@ static void AddPresents(std::vector<std::shared_ptr<PresentEvent>> const& presen
             chain->mLastDisplayedPresentIndex = 0;
         }
 
+        #ifdef GPUINFO
+            GPUInfoCallback_UpdateCsv(processInfo, *chain, *presentEvent);
+        #endif
+
         // Output CSV row if recording (need to do this before updating chain).
         if (recording) {
-            UpdateCsv(processInfo, *chain, *presentEvent);
+            #ifndef GPUINFO
+               UpdateCsv(processInfo, *chain, *presentEvent);
+            #endif
         }
 
         // Add the present to the swapchain history.
@@ -521,6 +535,14 @@ void Output()
         // gIsRecording is the real timeline recording state.  Because we're
         // just reading it without correlation to gRecordingToggleHistory, we
         // don't need the critical section.
+
+        #ifdef GPUINFO // see GPUInfoCallback.h
+        if (GPUInfoCallbackIsRunning()) { // check if output thread should still be called
+            for (auto const& pair : gProcesses) {
+                GPUInfoCallback_UpdateConsole(pair.first, pair.second);
+            }
+        } 
+        #endif  
 #if !DEBUG_VERBOSE
         auto realtimeRecording = gIsRecording;
         switch (args.mConsoleOutputType) {
@@ -586,6 +608,8 @@ void Output()
 
 void StartOutputThread()
 {
+    gQuit = false;  // to enable multiple starts and restarts
+
     InitializeCriticalSection(&gRecordingToggleCS);
 
     gThread = std::thread(Output);

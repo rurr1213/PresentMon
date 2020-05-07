@@ -38,7 +38,7 @@
     <ProjectGuid>{4EB9794B-1F12-48CE-ADC1-917E9810F29E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>PresentMon</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Platform)'=='ARM'">10.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Platform)'=='ARM64'">10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -70,10 +70,11 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -142,7 +143,7 @@
     <CustomBuildBeforeTargets>ClCompile</CustomBuildBeforeTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>..\build\debug\</OutDir>
+    <OutDir>..\..\..\lib\</OutDir>
     <IntDir>..\build\obj\$(ProjectName)-$(Platform)-$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)-$(PresentMonVersion)-x64</TargetName>
     <LinkIncremental>true</LinkIncremental>
@@ -245,6 +246,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -412,6 +414,7 @@
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="ConsumerThread.cpp" />
     <ClCompile Include="CsvOutput.cpp" />
+    <ClCompile Include="GPUInfoCallback.cpp" />
     <ClCompile Include="LateStageReprojectionData.cpp" />
     <ClCompile Include="MainThread.cpp" />
     <ClCompile Include="OutputThread.cpp" />
