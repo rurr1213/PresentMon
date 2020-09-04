@@ -18,7 +18,7 @@ public:
     double framemSecs;
     double fps;
 
-    time_t timeStamp;
+    time_t time;
 
     GPUInfoConsoleData& operator= (GPUInfoConsoleData&);
 };
@@ -46,7 +46,7 @@ public:
 
     long long outputQpcTime;
 
-    time_t timeStamp;
+    time_t time;
 
     GPUInfoCsvData& operator= (GPUInfoCsvData&);
 };

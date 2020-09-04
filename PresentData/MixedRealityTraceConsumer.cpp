@@ -434,9 +434,9 @@ void MRTraceConsumer::HandleSpectrumContinuousEvent(EVENT_RECORD* pEventRecord)
                     return;
                 }
 
-                const uint64_t timeStamp = *(uint64_t*)&hdr.TimeStamp;
-                assert(frameIter->second->StartTime <= timeStamp);
-                frameIter->second->StopTime = timeStamp;
+                const uint64_t time = *(uint64_t*)&hdr.TimeStamp;
+                assert(frameIter->second->StartTime <= time);
+                frameIter->second->StopTime = time;
 
                 // Only stop the frame once we've seen all the events for it.
                 if (frameIter->second->PresentId != 0 && frameIter->second->StopTime != 0) {

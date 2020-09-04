@@ -16,7 +16,7 @@ GPUInfoConsoleData& GPUInfoConsoleData::operator= (GPUInfoConsoleData& gid) {
     framemSecs = gid.flags;
     fps = gid.fps;
 
-    timeStamp = gid.timeStamp;
+    time = gid.time;
 
     return *this;
 }
@@ -43,7 +43,7 @@ GPUInfoCsvData& GPUInfoCsvData::operator= (GPUInfoCsvData& gid) {
 
     outputQpcTime = gid.outputQpcTime;
 
-    timeStamp = gid.timeStamp;
+    time = gid.time;
 
     return *this;
 }
@@ -208,7 +208,7 @@ void GPUInfoCallback_UpdateConsole(uint32_t processId, ProcessInfo const& proces
         ConsolePrintLn("");
     } */
 
-    time(&gpuInfoConsoleData.timeStamp);
+    time(&gpuInfoConsoleData.time);
 
     if (!empty) {
         if (g_gpuInfo.m_pgpuInfoCallback != 0) {
@@ -292,7 +292,7 @@ void GPUInfoCallback_UpdateCsv(ProcessInfo* processInfo, SwapChainData const& ch
 
     gpuInfoCsvData.outputQpcTime = p.QpcTime;
 
-    time(&gpuInfoCsvData.timeStamp);
+    time(&gpuInfoCsvData.time);
 
     if (g_gpuInfo.m_pgpuInfoCallback != 0) {
         g_gpuInfo.m_pgpuInfoCallback->notifyHostCsvData(gpuInfoCsvData);
