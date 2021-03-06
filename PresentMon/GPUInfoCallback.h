@@ -20,7 +20,7 @@ public:
 
     time_t time;
 
-    GPUInfoConsoleData& operator= (GPUInfoConsoleData&);
+    GPUInfoConsoleData& operator= (const GPUInfoConsoleData&);
 };
 
 class GPUInfoCsvData {
@@ -48,14 +48,14 @@ public:
 
     time_t time;
 
-    GPUInfoCsvData& operator= (GPUInfoCsvData&);
+    GPUInfoCsvData& operator= (const GPUInfoCsvData&);
 };
 
 
 class IGPUInfoCallback {
 public:
-    virtual void notifyHostConsoleData(GPUInfoConsoleData&)=0;
-    virtual void notifyHostCsvData(GPUInfoCsvData&)=0;
+    virtual void notifyHostConsoleData(const GPUInfoConsoleData&)=0;
+    virtual void notifyHostCsvData(const GPUInfoCsvData&)=0;
 };
 
 class GPUInfo

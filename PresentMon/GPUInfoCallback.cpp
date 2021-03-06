@@ -6,27 +6,27 @@ GPUInfo g_gpuInfo;
 
 // -------------------------------------------------------------------------------------------
 
-GPUInfoConsoleData& GPUInfoConsoleData::operator= (GPUInfoConsoleData& gid) {
+GPUInfoConsoleData& GPUInfoConsoleData::operator= (const GPUInfoConsoleData& gid) {
     processName = gid.processName;
-    processId = gid.processId;
-    address = gid.address;
-    runTime = gid.runTime;
+    processId   = gid.processId;
+    runTime     = gid.runTime;
+    address     = gid.address;
     syncInterval = gid.syncInterval;
-    flags = gid.flags;
-    framemSecs = gid.flags;
-    fps = gid.fps;
+    flags       = gid.flags;
+    framemSecs  = gid.framemSecs;
+    fps         = gid.fps;
 
-    time = gid.time;
+    time        = gid.time;
 
     return *this;
 }
 
-GPUInfoCsvData& GPUInfoCsvData::operator= (GPUInfoCsvData& gid) {
+GPUInfoCsvData& GPUInfoCsvData::operator= (const GPUInfoCsvData& gid) {
     processName = gid.processName;
-    processId = gid.processId;
-    runTime = gid.runTime;
+    processId   = gid.processId;
+    runTime     = gid.runTime;
     syncInterval = gid.syncInterval;
-    flags = gid.flags;
+    flags       = gid.flags;
 
     supportsTearing = gid.supportsTearing;
     presentMode = gid.presentMode;
